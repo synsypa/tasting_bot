@@ -42,7 +42,10 @@ for cat in range(1,4):
             note_taster = l.find('div', attrs={'class':'paragraph'}).get_text().strip()
             nt_split = note_taster.split('—')
             note = nt_split[0].strip()
-            taster = nt_split[1].strip()
+            if len(nt_split) > 1:
+                taster = nt_split[1].strip()
+            else:
+                taster = "NONE"
 
             output.append([wine, maker, vintage, points, price, taster, note, cat])
             time.sleep(5)
