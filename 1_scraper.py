@@ -44,8 +44,8 @@ for cat in range(1,4):
             note = nt_split[0].strip()
             taster = nt_split[1].strip()
 
-            output.append([wine, maker, vintage, points, price, taster, note])
-            time.sleep(10)
+            output.append([wine, maker, vintage, points, price, taster, note, cat])
+            time.sleep(20)
 
 # Save result to .CSV
 with open("winespectator_2017_10_23.csv", "wb") as f:
