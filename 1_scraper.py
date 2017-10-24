@@ -11,8 +11,8 @@ import time
 # Scrape from Wine Spectator Daily Picks Page
 template = "http://www.winespectator.com/dailypicks/category/catid/{}/page/{}"
 output = []
-for cat in range(1,2):#4):
-    for page in range(1,3):#901):
+for cat in range(1,4):
+    for page in range(1,901):
         site = template.format(cat, page)
         response = requests.get(site)
         print(response.url)
