@@ -49,7 +49,7 @@ for cat in range(1,4):
     
     # Save result to .CSV
     with open("".join(["winespectator_2017-10-23_", str(cat), ".csv"]), "wb") as f:
-    writer = csv.writer(f)
-    writer.writerows(output)
+        writer = csv.writer(f)
+        writer.writerows(output)
 
     
