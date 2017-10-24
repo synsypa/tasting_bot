@@ -45,10 +45,11 @@ for cat in range(1,4):
             taster = nt_split[1].strip()
 
             output.append([wine, maker, vintage, points, price, taster, note, cat])
-            time.sleep(20)
-
-# Save result to .CSV
-with open("winespectator_2017_10_23.csv", "wb") as f:
+            time.sleep(5)
+    
+    # Save result to .CSV
+    with open("".join(["winespectator_2017-10-23_", str(cat), ".csv"]), "wb") as f:
     writer = csv.writer(f)
     writer.writerows(output)
+
     
