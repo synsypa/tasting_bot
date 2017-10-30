@@ -1,5 +1,8 @@
 import tweepy
 import time
+import logging
+import pickle
+import random
 
 class Bot:
     def __init__(self,
@@ -23,7 +26,7 @@ class Bot:
         
         running = True
         while running:
-            name1, name2 = name2, random.choice(nm_dict[(name1, name2)])
+            name1, name2 = name2, random.choice(self.nm_dict[(name1, name2)])
             if name2 == 'ENDEND':
                 running = False
             else:
@@ -36,7 +39,7 @@ class Bot:
         
         running = True
         while running:
-            note1, note2 = note2, random.choice(mc_dict[(note1, note2)])
+            note1, note2 = note2, random.choice(self.mc_dict[(note1, note2)])
             if note2 == 'ENDEND':
                 running = False
             else:
@@ -49,7 +52,7 @@ class Bot:
     def run(self):
         while True:
             try:
-                tweet = self._get_tweet()
+                tweet = self._create_tweet()
                 self._twitter_api.tweet(tweet)
             except Exception as e:
                 self._logger.error(e, exc_info=True)
