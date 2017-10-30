@@ -10,3 +10,4 @@ This is the first pass attempt at applying a Markov Chain text bot to generate w
 * Scrap more sources of notes for better training set
 
 Base dataset scraped from Wine Spectator review notes
+Twitter integration based heavily on https://github.com/srome/markovbot
