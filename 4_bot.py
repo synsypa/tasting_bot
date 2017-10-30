@@ -3,6 +3,7 @@ import time
 import logging
 import pickle
 import random
+import os
 
 class Bot:
     def __init__(self,
@@ -95,10 +96,10 @@ def main():
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
 
-    consumer_key = None
-    consumer_secret = None
-    access_key = None
-    access_secret = None
+    consumer_key = os.environ['SOMM_TWEET_CONSUMER_KEY']
+    consumer_secret = os.environ['SOMM_TWEET_CONSUMER_SECRET']
+    access_key = os.environ['SOMM_TWEET_ACCESS_KEY']
+    access_secret = os.environ['SOMM_TWEET_ACCESS_SECRET']
 
     twitter_api = Twitter_Api(consumer_key, consumer_secret, access_key, access_secret)
     bot = Bot(twitter_api)
