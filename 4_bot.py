@@ -20,35 +20,38 @@ class Bot:
         self.sleep_timer = int(60*60/tweets_per_hour)
 
     def _create_tweet(self):
-        # Create Name
-        new_name = []
-        name1 = "STARTSTART"
-        name2 = "BEGINBEGIN"
-        
-        running = True
-        while running:
-            name1, name2 = name2, random.choice(self.nm_dict[(name1, name2)])
-            if name2 == 'ENDEND':
-                running = False
-            else:
-                new_name.append(name2)
-                
-        # Create Note
-        new_note = []
-        note1 = "STARTSTART"
-        note2 = "BEGINBEGIN"
-        
-        running = True
-        while running:
-            note1, note2 = note2, random.choice(self.mc_dict[(note1, note2)])
-            if note2 == 'ENDEND':
-                running = False
-            else:
-                new_note.append(note2)
-        
-        name = ' '.join(new_name)
-        note = ' '.join(new_note)
-        return name + ': ' + note
+        tweet = ""
+        while tweet == "" or len(tweet) > 140:
+            # Create Name
+            new_name = []
+            name1 = "STARTSTART"
+
+            running = True
+            while running:
+                name1 = random.choice(self.nm_dict[name1])
+                if name1 == 'ENDEND':
+                    running = False
+                else:
+                    new_name.append(name1)
+
+            # Create Note
+            new_note = []
+            note1 = "STARTSTART"
+            note2 = "BEGINBEGIN"
+
+            running = True
+            while running:
+                note1, note2 = note2, random.choice(self.mc_dict[(note1, note2)])
+                if note2 == 'ENDEND':
+                    running = False
+                else:
+                    new_note.append(note2)
+
+            name = ' '.join(new_name)
+            note = ' '.join(new_note)
+            tweet = name + ': ' + note 
+            
+        return tweet
 
     def run(self):
         while True:
