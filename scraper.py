@@ -59,14 +59,26 @@ def process_entry(wine_entry):
 
     # Extract Type and Vintage
     wtype_yr = wine_entry.find('h4').get_text().strip()
-    if wtype_yr[-2:] == 'NV':
-        wtype = wtype_yr[:-2].strip()
-        vintage = 'NV'
-        logger.debug(f"No Vintage Present in {wtype}")
-    else:
+    if wtype_yr[-4:].isdigit():
         wtype = wtype_yr[:-4].strip()
         vintage = wtype_yr[-4:]
         logger.debug(f"Extracted vintage {vintage}")
+    elif wtype_yr[-2:].isdigit():
+        wtype = wtype_yr[:-2].strip()
+        vintage = wtype_yr[-2:]
+        if int(vintage) <= 25: #TKTK: do this check properly
+            vintage = '20' + vintage
+        else:
+            vintage = '19' + vintage
+        logger.debug(f"2 digit vintage found, using {vintage}")
+    elif (wtype_yr[-2:] == 'NV') or ():
+        wtype = wtype_yr[:-2].strip()
+        vintage = 'NV'
+        logger.debug(f"Vintage defined as Non-Vintage")
+    else:
+        wtype = wtype_yr
+        vintage = None
+        logger.debug(f"No vintage found")
 
     # Extract Score
     score = wine_entry.find('span', {'class': 'pwl-score'}).get_text()
@@ -77,11 +89,12 @@ def process_entry(wine_entry):
     price = price_note[0].get_text().strip()
     logger.debug(f"Extracted Price: {price}")
     note = price_note[1].get_text().strip()
-    logger.debug(f"Extracted Note...")
+    logger.debug(f"Extracted Note: {note}")
 
     text, taster, n_made, n_import = split_note(note)
 
-    return [wtype,
+    return [name,
+            wtype,
             vintage,
             score,
             price,
@@ -90,7 +103,7 @@ def process_entry(wine_entry):
             n_made,
             n_import]
 
-def scrape_single_page(page, category):
+def scrape_single_page(category, page):
     
     url = f"https://www.winespectator.com/dailypicks/category/catid/{category}/page/{page}"
     processed_page = []
@@ -120,7 +133,7 @@ def scrape_single_page(page, category):
 def scrape_category(category):
     processed_cat = []
     for page in range(1, PAGEDICT[category]+1):
-        processed_cat += scrape_single_page(page, category)
+        processed_cat += scrape_single_page(category, page)
         # Sleep for random time betwen 5-10 seconds
         time.sleep(5 + random.randint(0,5))
 
