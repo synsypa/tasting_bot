@@ -156,9 +156,10 @@ def main(opts):
             category_wines = scrape_category(cat)
             save_output(category_wines, f'ws_cat{cat}')
     else:
-        logger.info(f"Scraping all pages of category {opts.category}...")
-        category_wines = scrape_category(opts.category)
-        save_output(category_wines, f'ws_cat{opts.category}')
+        cat = int(opts.category)
+        logger.info(f"Scraping all pages of category {cat}...")
+        category_wines = scrape_category(cat)
+        save_output(category_wines, f'ws_cat{cat}')
     return 1
 
 if __name__ == "__main__":
