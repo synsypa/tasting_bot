@@ -141,8 +141,8 @@ def scrape_category(category):
 
 def save_output(output, filename): 
     # Save result to .CSV
-    logger.info(f"Saving output to raw_data/{filename}")
-    with open(f"./scraped/{filename}.csv") as f:
+    logger.info(f"Saving output to scraped/{filename}")
+    with open(f"scraped/{filename}.csv", "w+") as f:
         writer = csv.writer(f)
         writer.writerows(output)
 
