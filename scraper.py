@@ -80,9 +80,11 @@ def process_entry(wine_entry):
         vintage = None
         logger.debug(f"No vintage found")
 
+    logger.debug(f"Extracted Wine: {wtype}")
+
     # Extract Score
     score = wine_entry.find('span', {'class': 'pwl-score'}).get_text()
-    logger.debug(f"Extracted score: {score}")
+    logger.debug(f"Extracted Score: {score}")
 
     # Extract Price and Note
     price_note = wine_entry.find_all('p')
@@ -130,36 +132,43 @@ def scrape_single_page(category, page):
 
     return processed_page
 
-def scrape_category(category):
+def scrape_category(category, filepath = None):
     processed_cat = []
     for page in range(1, PAGEDICT[category]+1):
-        processed_cat += scrape_single_page(category, page)
+        processed_page = scrape_single_page(category, page)
+        processed_cat += processed_page
+        # Save if specified
+        if filepath:
+            save_output(processed_page, filepath)
         # Sleep for random time betwen 5-10 seconds
         time.sleep(5 + random.randint(0,5))
-
     return processed_cat
 
-def save_output(output, filename): 
-    # Save result to .CSV
-    logger.info(f"Saving output to scraped/{filename}")
-    with open(f"scraped/{filename}.csv", "w+") as f:
+# def save_output(output, filename): 
+#     # Save result to .CSV
+#     logger.info(f"Saving output to scraped/{filename}")
+#     with open(f"scraped/{filename}.csv", "w+") as f:
+#         writer = csv.writer(f)
+#         writer.writerows(output)
+#     return 1
+
+def save_output(output, filepath):
+    # Save page to .csv
+    logger.info(f"Saving page to {filepath}")
+    with open(filepath, "a+") as f:
         writer = csv.writer(f)
         writer.writerows(output)
-
-    return 1
 
 def main(opts):
     logger.info(f"Starting Wine Spectator Scrape...")
     if not opts.category:
         for cat in range(1,4):
             logger.info(f"Scraping all pages of category {cat}...")
-            category_wines = scrape_category(cat)
-            save_output(category_wines, f'ws_cat{cat}')
+            scrape_category(cat, filepath = f'scraped/ws_cat{cat}')
     else:
         cat = int(opts.category)
         logger.info(f"Scraping all pages of category {cat}...")
-        category_wines = scrape_category(cat)
-        save_output(category_wines, f'ws_cat{cat}')
+        scrape_category(cat, filepath = f'scraped/ws_cat{cat}')
     return 1
 
 if __name__ == "__main__":
