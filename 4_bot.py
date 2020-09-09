@@ -13,7 +13,7 @@ class Bot:
         self._logger = logging.getLogger(__name__)
         
         # Load Transition Matricies
-        self.mc_dict = pickle.load(open('processed_data/basic_note_dict.pkl', 'rb'))
+        self.mc_dict = pickle.load(open('processed_data/basic_dict.pkl', 'rb'))
         self.nm_dict = pickle.load(open('processed_data/basic_name_dict.pkl', 'rb'))
 
         #Calculate sleep timer
@@ -103,7 +103,8 @@ def main():
     consumer_secret = os.environ['SOMM_TWEET_CONSUMER_SECRET']
     access_key = os.environ['SOMM_TWEET_ACCESS_KEY']
     access_secret = os.environ['SOMM_TWEET_ACCESS_SECRET']
-
+    
+    logger.info("Starting Bot...")
     twitter_api = Twitter_Api(consumer_key, consumer_secret, access_key, access_secret)
     bot = Bot(twitter_api)
 
