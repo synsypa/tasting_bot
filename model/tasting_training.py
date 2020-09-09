@@ -1,16 +1,12 @@
 from logzero import logger
 import os
 
-import random
 import time
 import torch
-import torch.nn as nn
 import transformers
-from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
+from torch.utils.data import DataLoader
 from transformers import (AutoConfig, AutoTokenizer, AutoModelForCausalLM,
-                         TextDataset, DataCollatorForLanguageModeling,
-                         AdamW, get_linear_schedule_with_warmup,
-                         GPT2LMHeadModel, GPT2Tokenizer, Trainer)
+                         AdamW, get_linear_schedule_with_warmup)
 from transformers import WEIGHTS_NAME, CONFIG_NAME
 import tasting_dataset as taste
 
