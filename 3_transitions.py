@@ -16,7 +16,7 @@ def gen_bigram(words):
 
 # Load Merged Notes into list
 noteslist = []
-with open('ws_notes_2017-10-23_merged.csv', 'r') as f:
+with open('processed_data/ws_notes_merged_20200909.csv', 'r') as f:
     notes = csv.reader(f)
     for row in notes:
         noteslist.append(row)
@@ -36,11 +36,11 @@ for i in noteslist:
             mc_dict[key] = [word3]
 
 # Save to pkl
-pickle.dump(mc_dict, open('basic_dict.pkl', 'wb'))
+pickle.dump(mc_dict, open('processed_data/basic_dict.pkl', 'wb'))
 
 # Load Merged Names into list
 nameslist = []
-with open('ws_names_2017-10-23_merged.csv', 'r') as f:
+with open('processed_data/ws_names_merged_20200909.csv', 'r') as f:
     names = csv.reader(f)
     for row in names:
         nameslist.append(row)
@@ -61,4 +61,4 @@ for i in nameslist:
             nm_dict[key] = [word2]
 
 # Save to pkl       
-pickle.dump(nm_dict, open('basic_name_dict.pkl', 'wb'))
+pickle.dump(nm_dict, open('processed_data/basic_name_dict.pkl', 'wb'))

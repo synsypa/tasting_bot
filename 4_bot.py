@@ -13,8 +13,8 @@ class Bot:
         self._logger = logging.getLogger(__name__)
         
         # Load Transition Matricies
-        self.mc_dict = pickle.load(open('basic_note_dict.pkl', 'rb'))
-        self.nm_dict = pickle.load(open('basic_name_dict.pkl', 'rb'))
+        self.mc_dict = pickle.load(open('processed_data/basic_note_dict.pkl', 'rb'))
+        self.nm_dict = pickle.load(open('processed_data/basic_name_dict.pkl', 'rb'))
 
         #Calculate sleep timer
         self.sleep_timer = int(60*60/tweets_per_hour)
