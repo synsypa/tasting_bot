@@ -164,11 +164,11 @@ def main(opts):
     if not opts.category:
         for cat in range(1,4):
             logger.info(f"Scraping all pages of category {cat}...")
-            scrape_category(cat, filepath = f'scraped/ws_cat{cat}')
+            scrape_category(cat, filepath = f'../scraped_data/ws_cat{cat}')
     else:
         cat = int(opts.category)
         logger.info(f"Scraping all pages of category {cat}...")
-        scrape_category(cat, filepath = f'scraped/ws_cat{cat}')
+        scrape_category(cat, filepath = f'../scraped_data/ws_cat{cat}')
     return 1
 
 if __name__ == "__main__":

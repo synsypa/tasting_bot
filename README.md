@@ -1,12 +1,13 @@
 # tasting_bot
 
-This is the first pass attempt at applying a Markov Chain text bot to generate wine tasting notes. Output can be found on @SOMMarkov on twitter (twitter.com/SOMMarkov)
+This both tunes GPT2 to output wine tasting notes by using Wine Spectator Daily Pick tasting notes as training data. Output can be found on @SOMMarkov on twitter (twitter.com/SOMMarkov)
+
+## Notes
+Trained on Google Colab Notebook over 10 epochs
 
 ## Potential Expansions
-* Prettier/more efficient code
-* More sophisticated seeding 
-* Given a Price and Style output a seeded random note
-* Recieve @s and reply with seeded notes
+* Better End to End capabilities (i.e. process scraped data in Dataset class)
+* Recieve @s and reply with generated notes
 * Scrap more sources of notes for better training set
 
 Base dataset scraped from Wine Spectator review notes
