@@ -21,7 +21,7 @@ class Bot:
 
     def _create_tweet(self):
         tweet = ""
-        while tweet == "" or len(tweet) > 140:
+        while tweet == "" or len(tweet) > 280:
             # Create Name
             new_name = []
             name1 = "STARTSTART"
@@ -33,6 +33,9 @@ class Bot:
                     running = False
                 else:
                     new_name.append(name1)
+            
+            name = ' '.join(new_name)
+            tweet = name
 
             # Create Note
             new_note = []
@@ -47,9 +50,9 @@ class Bot:
                 else:
                     new_note.append(note2)
 
-            name = ' '.join(new_name)
+            
             note = ' '.join(new_note)
-            tweet = name + ': ' + note 
+            tweet = tweet + ': ' + note 
             
         return tweet
 
@@ -71,9 +74,6 @@ class Twitter_Api():
         self._access_key = access_key
         self._access_secret = access_secret
         self._authorization = None
-        if consumer_key is None:
-            self.tweet = lambda x : self._logger.info("Test tweet: " + x)
-            self._login = lambda x : self._logger.debug("Test Login completed.")
 
     def _login(self):
         auth = tweepy.OAuthHandler(self._consumer_key, self._consumer_secret)
