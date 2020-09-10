@@ -20,6 +20,7 @@ class Bot:
         self.sleep_timer = int(60*60/tweets_per_hour)
 
     def _create_tweet(self):
+        self._logger.debug("Generating Tweet...")
         tweet = ""
         while tweet == "" or len(tweet) > 280:
             # Create Name
@@ -52,7 +53,7 @@ class Bot:
 
             
             note = ' '.join(new_note)
-            tweet = tweet + ': ' + note 
+            tweet = f"{tweet}: {note}"
             
         return tweet
 
@@ -60,6 +61,7 @@ class Bot:
         while True:
             try:
                 tweet = self._create_tweet()
+                self._logger.debug(f"Generated tweet: {tweet}")
                 self._twitter_api.tweet(tweet)
             except Exception as e:
                 self._logger.error(e, exc_info=True)
