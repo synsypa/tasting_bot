@@ -12,7 +12,7 @@ for csvname in csvs:
     with open(f"scraped_data/{csvname}", 'r') as f:
         notes = csv.reader(f)
         for row in notes:
-            merged.append([row[6]])
+            merged.append([row[6].strip()])
             combined_name = ' '.join(row[0:3])
             names.append([combined_name])
 
@@ -21,7 +21,7 @@ with open(
         f"processed_data/ws_notes_merged_{datetime.utcnow().strftime('%Y%m%d')}.csv",
          "w") as m:
     writer = csv.writer(m)
-    writer.writerow(merged)
+    writer.writerows(merged)
 
 # Create csv of names
 with open(f"processed_data/ws_names_merged_{datetime.utcnow().strftime('%Y%m%d')}.csv",
