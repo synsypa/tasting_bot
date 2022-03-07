@@ -1,16 +1,17 @@
 APP_NAME = somm
 VERSION ?= latest
-ECR_REPO = 068485393558.dkr.ecr.us-west-2.amazonaws.com/${APP_NAME}:${VERSION}
+ECR_REPO = public.ecr.aws/b3k6x0d7
+CONTAINER = ${ECR_REPO}/${APP_NAME}:${VERSION}
 
 ecr-login:
-	aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 068485393558.dkr.ecr.us-west-2.amazonaws.com
+	aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ECR_REPO}
 
 build: 
 	docker build -t ${APP_NAME}:${VERSION} .
-	docker tag ${APP_NAME}:${VERSION} ${ECR_REPO}
+	docker tag ${APP_NAME}:${VERSION} ${CONTAINER}
 
 pull: ecr-login
-	docker pull ${ECR_REPO}
+	docker pull ${CONTAINER}
 
 push: ecr-login build
-	docker push ${ECR_REPO}
+	docker push ${CONTAINER}
