@@ -17,8 +17,8 @@ class Bot:
         self._logger = logging.getLogger(__name__)
         
         # Load Transition Matricies
-        self.mc_dict = pickle.load(open('../markov/basic_note_dict.pkl', 'rb'))
-        self.nm_dict = pickle.load(open('../markov/basic_name_dict.pkl', 'rb'))
+        self.mc_dict = pickle.load(open('basic_note_dict.pkl', 'rb'))
+        self.nm_dict = pickle.load(open('basic_name_dict.pkl', 'rb'))
 
         #Calculate sleep timer
         self.sleep_timer = int(60*60*hours_per_tweet)
@@ -42,7 +42,6 @@ class Bot:
             new_note = []
             note1 = START2_TOK
             note2 = f"{new_name[-1]}:"
-            print(note1 + note2)
             running = True
             while running:
                 note1, note2 = note2, random.choice(self.mc_dict[(note1, note2)])

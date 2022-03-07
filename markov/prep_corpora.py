@@ -38,6 +38,12 @@ class BookCleaner(CorpusCleaner):
             all_book = f.read()
         return all_book
 
+    def _process_line(self, line):
+        cleaned = line.strip().replace('"', '').replace("'", "")
+        cleaned = re.sub("\s+", " ", cleaned)
+        cleaned = re.sub("\d\d*.", "", cleaned)
+        return f"{self.start1}{self.start2} {cleaned} {self.end}"
+
     def clean_lines(self):
         text = self._open_file()
         paragraphs = [
@@ -73,7 +79,7 @@ class AnalectCleaner(BookCleaner):
         for b in books:
             chapters.extend(re.split('CHAP. [XIV]+.|CHAPTER.[XIV]+.', b.strip()))
         lines = [
-            self._process_line(re.sub("\d\d*.", "", v))
+            self._process_line(v)
             for v in chapters
         ]
         return lines
