@@ -1,1 +1,4 @@
 *.ipynb
+*.csv
+*.txt
+!*requirements.txt
